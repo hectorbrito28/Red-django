@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+{% for m in messages %}
+
+    <p>{{m}}</p>
+
+{% endfor %}
+
+
+<main class="container" >
+    <div class="row" >
+        <div class="col-md-4 offset-md-4">
+            <form method="POST" class="card card-body">
+
+                {% csrf_token %}
+
+                {{form.as_p}}
+                <button>Crear tarea</button>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+
+    {% for t in tasks %}
+
+
+        {% if t.completed == True and t.datetime_created%}
+
+        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{t.name}}</div>
+            <div class="card-body">
+              <h6 class="card-title">{{t.datetime_created}}</h6>
+              
+              <p class="card-text">{{t.description}}</p>
+
+                <div class="container justify-content-between ">
+
+                    <form action="{% url 'DEL' %}" method="POST">
+
+                        {% csrf_token %}
+
+                        <button value={{t.id}}  name="task" class="btn btn-primary" >Eliminar</button>
+
+                    </form>
+
+                    <form action="{% url 'DETAIL' %}">
+
+                        <button value={{t.id}}  name="taskdetail" class="btn btn-primary" >Detalles</button>
+
+                    </form>
+
+                    <form action="{% url 'SAVE' %}" method="POST">
+                        
+                        {% csrf_token %}
+
+                    <button value={{t.id}} name="task" class="btn btn-primary" >Completa</button>
+                    
+                        </div>
+
+                        {% if t.completed == True %}
+
+                        <div class="form-check">
+                            <label class="form-check-label" >
+                            Completada
+                            </label>
+                        </div>
+
+                        {% else %}
+                        <div class="form-check">
+                            <label class="form-check-label" for="check1">
+                            Pendiente
+                            </label>
+                        </div>
+
+                        {% endif %}
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+          </div>
+
+        </div>
+        
+        {% else %}
+        <div class="container text-right" >
+
+                <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                    <div class="card-header">{{t.name}}</div>
+                    <div class="card-body">
+                        <h6 class="card-title">{{t.datetime_created}}</h6>
+                        <p class="card-text">{{t.description}}</p>
+                        
+                        <form action="{% url 'DEL' %}" method="POST">
+
+                            {% csrf_token %}
+
+                            <button value={{t.id}}  name="task" class="btn btn-primary" >Eliminar</button>
+
+                        </form>
+
+                        <form action="{% url 'DETAIL' %}">
+
+                            <button value={{t.id}}  name="taskdetail" class="btn btn-primary" >Detalles</button>
+
+                        </form>
+
+                        <form action="{% url 'SAVE' %}" method="POST">
+                            
+                            {% csrf_token %}
+
+                        <button value={{t.id}} name="task" class="btn btn-primary" >Completa</button>
+                        
+                            </div>
+
+                            {% if t.completed == True %}
+
+                            <div class="form-check">
+                                <label class="form-check-label" >
+                                Completada
+                                </label>
+                            </div>
+
+                            {% else %}
+                            <div class="form-check">
+                                <label class="form-check-label" for="check1">
+                                Pendiente
+                                </label>
+                        </div>
+        </div>  
+
+                    {% endif %}
+                </form>
+
+              
+            </div>
+          </div>
+
+
+        {% endif %}
+
+    {% endfor %}
+{% endblock %}

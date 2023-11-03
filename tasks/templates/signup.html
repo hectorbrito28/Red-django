@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+</head>
+<body>
+
+
+    <main class="container" >
+
+
+        <div class="row ">
+
+            <div class="col-md-4 offset-md-4 mt-5">
+
+                <form method="POST"  class="card card-body" >
+
+                    {% csrf_token %}
+
+                    {{userform}}
+                    <button>signup</button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% if messages %}
+        {% for m in messages %}
+
+            <p>{{m}}</p>
+
+        {% endfor %}
+    {% endif %}
+
+
+</body>
+</html>
+
+{% endblock %}

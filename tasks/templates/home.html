@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<main class="container py-5">
+    <section class="card card-body" >
+        <h1 class="display-1 text-center">Home</h1>
+
+        <div class="text-center">
+
+            <a class="btn btn-primary" href="{% url 'Signin' %}" >Signin</a>
+
+            <a class="btn btn-primary" href="{% url 'signup' %}" >Signup</a>
+
+        </div>
+    </section>
+
+</main>
+
+
+
+{% if messages %}
+{% for m in messages %}
+
+    <p>{{m}}</p>
+
+{% endfor %}
+{% endif %}
+
+{% endblock %}
